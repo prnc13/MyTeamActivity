@@ -35,7 +35,7 @@
                             </group>
                         </group>
                         <seperator string='Fill your Sub Activities'/>
-                        <field name="order_rem_idss">
+                        <field name="order_rem_ids">
                             <tree string="List" editable="bottom">
                                 <field name="name"/>
                                 <field name="user_id"/>

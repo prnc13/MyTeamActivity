@@ -10,7 +10,7 @@
 
             <field name="name">Activity Type.form.view</field>
 
-            <field name="model">activity_type</field>
+            <field name="model">activity.type</field>
 
             <field name="arch" type="xml">
 
@@ -50,7 +50,7 @@
 
             <field name="name">Activity Type.tree.view</field>
 
-            <field name="model">activity_type</field>
+            <field name="model">activity.type</field>
             <field name="type">tree</field>
 
             <field name="arch" type="xml">
@@ -69,7 +69,7 @@
 
             <field name="name">Activity Type </field>
 
-            <field name="res_model">activity_type</field>
+            <field name="res_model">activity.type</field>
 
             <field name="view_type">form</field>
 
