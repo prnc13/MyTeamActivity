@@ -71,7 +71,7 @@ class recursive(models.Model):
     rem_date= fields.Date(string='Reminder Date')
 
 
-class main(models.Model):
+class Reminder(models.Model):
     _name='reminder'
     # _inherit = ['mail.thread', 'mail.activity.mixin']
     
