@@ -8,30 +8,23 @@ from odoo.exceptions import ValidationError
 
 
     
-class activity_category(models.Model):
-    _name="activity_category"
+class ActivityCategory(models.Model):
+    _name="activity.category"
     _rec_name='activity_category'
     activity_category=fields.Char(string='Activity Category', help="Add Activity Category Here")
     color = fields.Char(string="Color",help="Choose your color",size=7)
     tag_ids=fields.Many2one('res.partner')
 
 
-class activity_type(models.Model):
-    _name="activity_type"
+class ActivityType(models.Model):
+    _name="activity.type"
     _rec_name='activity_type'
 
 
-    activity_category_id=fields.Many2one('activity_category',string='Activity Category',help="Add Activity Category Here")
+    activity_category_id=fields.Many2one('activity.category',string='Activity Category',help="Add Activity Category Here")
     activity_type=fields.Char(string="Activity Type",help="Add Activity Type Here") 
 
 
-class sub_activity(models.Model):
-    _name="sub_activity"
-    _rec_name='sub_activity'
-
-    sub_activity=fields.Char(string="Sub Activity")
-
-    
     # hide = fields.Boolean(string='Hide', compute="_compute_hide")
     # @api.onchange('activity_category_id')
     # def _onchange_act(self):
