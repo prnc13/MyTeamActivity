@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<odoo>
+
+     <!-- tree view -->
+
+
+
+       <record model="ir.ui.view" id="recursive_form_view">
+
+            <field name="name">recursive.form.view</field>
+
+            <field name="model">recursive</field>
+
+            <field name="arch" type="xml">
+
+                <form string="insurance Form">
+
+                    <sheet>
+
+                        <group>
+                            <field name="act1"/>
+                            <field name="name"/>
+                            <field name="rec"/>
+                            <field name="rem_date" attrs="{'invisible':[('rec', '=', False)]}"/>
+
+                        </group>
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+            </record>  
+
+        
+
+        <!--= window action -->
+
+        <!--
+
+            The following tag is an action definition for a "window action",
+
+            that is an action opening a view or a set of views
+
+        -->
+
+        <record model="ir.ui.view" id="recursive_tree_view">
+
+            <field name="name">recursive.tree.view</field>
+
+            <field name="model">recursive</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="recursive Form">
+                            <field name="act1"/>
+                            <field name="name"/>
+                            <field name="rec"/>
+                            <field name="rem_date"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="recursive_list_action">
+
+            <field name="name">recursive Field </field>
+
+            <field name="res_model">recursive</field>
+
+            <field name="view_type">form</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first insurance here
+
+                </p>
+
+            </field>
+
+        </record>
+
+
+
+    <menuitem parent="crm.crm_menu_pipeline" name="Scheduler" id="recursive_menu" action="recursive_list_action" sequence= "43"/> 
+
+
+
+</odoo>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<odoo>
+
+     <!-- tree view -->
+
+
+
+       <record model="ir.ui.view" id="main_form_view">
+
+            <field name="name">Reminder.form.view</field>
+
+            <field name="model">main</field>
+
+            <field name="arch" type="xml">
+
+                <form string="Reminder Form">
+
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="customer_name"/>
+                                
+                                <field name="activity_category_id"/>
+                                <field name="activity_type_id"/>
+                                <field name="user_id"/>
+                            </group>
+                            <group>
+                                <field name="last_date"/>
+                                <field name="target_date"/>
+                                <field name="rem_date"/>
+                                <field name="actual_date"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+                        <seperator string='Fill your Sub Activities'/>
+                        <field name="order_rem_idss">
+                            <tree string="List" editable="bottom">
+                                <field name="name"/>
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="date_1"/>
+                                <field name="status"/> 
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                    </div> 
+                </form>
+
+            </field>
+
+        </record>  
+
+        
+
+        <!--= window action -->
+
+        <!--
+
+            The following tag is an action definition for a "window action",
+
+            that is an action opening a view or a set of views
+
+        -->
+
+        <record model="ir.ui.view" id="main_tree_view">
+
+            <field name="name">Reminder.tree.view</field>
+
+            <field name="model">main</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="Reminder Form" decoration-danger="last_date &lt;= current_date" decoration-success="rem_date &lt;= current_date">
+                    <field name="id" string="Reminder ID"/>
+
+
+                    <field name="customer_name"/>
+                        
+                    <field name="activity_category_id"/>
+                    <field name="activity_type_id"/>
+                    <field name="user_id"/>
+            
+                    
+                    
+
+                               
+                    <field name="last_date"/>
+                    <field name="target_date"/>
+                    <field name="rem_date"/>
+                    <field name="actual_date"/>
+                    <field name="status"/>
+                        
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="main_list_action">
+
+            <field name="name">Activity Reminder </field>
+
+            <field name="res_model">main</field>
+
+            <field name="view_type">form</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first Activity Reminder here</p>
+
+            </field>
+
+        </record>
+
+        <record model="ir.actions.act_window" id="main_list_action1">
+
+            <field name="name">Activity Reminder</field>
+
+            <field name="res_model">main</field>
+
+            <field name="view_type">form</field>
+
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('customer_name','=', active_id)]</field>
+            <field name="context">{
+                'search_default_partner_id': active_id,
+                'default_type': 'customer_name'
+            }</field>
+            
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first Reminder here</p>
+
+            </field>
+
+        </record>
+
+        <!-- <record id="relate_partner_main_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="main_tree_view"/>
+            <field name="act_window_id" ref="main_list_action1"/>
+        </record> -->
+       
+        
+        <record model="ir.ui.view" id="main_search_view">
+
+            <field name="name">main.search.view</field>
+
+            <field name="model">main</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="main Form">
+                    <filter string="Today"  name="Today" separator="1"
+                        domain="['|','|','|',('rem_date', '=', context_today().strftime('%Y-%m-%d')),
+                        ('last_date', '=', context_today().strftime('%Y-%m-%d')),
+                        ('actual_date', '=', context_today().strftime('%Y-%m-%d')),
+                        ('target_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+
+                    <filter string="Status:On Hold"  name="On Hold" separator="1" domain="[('status','=', 'hold')]"/> 
+                    <filter string="Status:Pending"  name="Pending" separator="1" domain="[('status','=', 'pending')]"/> 
+                    <filter string="Status:Done"  name="Done" separator="1" domain="[('status','=', 'done')]"/>  
+                    <filter string="Activity Category" context="{'group_by':'activity_category_id'}"/>
+                    <filter string="Activity Type" context="{'group_by':'activity_type_id'}"/>
+
+                    
+                </search>
+            </field>
+        </record>
+
+    <menuitem parent="crm.crm_menu_pipeline" name="Activity Reminder" id="main_menu" action="main_list_action" sequence= "45"/> 
+
+        
+
+
+
+
+</odoo>
+
+
+
+
+
+
+
+
+
+
+

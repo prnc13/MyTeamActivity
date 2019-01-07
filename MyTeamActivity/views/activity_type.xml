@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<odoo>
+
+     <!-- tree view -->
+
+
+
+       <record model="ir.ui.view" id="activity_type_form_view">
+
+            <field name="name">Activity Type.form.view</field>
+
+            <field name="model">activity_type</field>
+
+            <field name="arch" type="xml">
+
+                <form string="Activity Type Form">
+
+                    <sheet>
+
+                        <group>
+
+                           <field name="activity_category_id"/>
+                           <field name="activity_type"/>
+                
+
+                        </group>
+
+                    </sheet>
+
+                </form>
+
+            </field>
+
+            </record>  
+
+        
+
+        <!--= window action -->
+
+        <!--
+
+            The following tag is an action definition for a "window action",
+
+            that is an action opening a view or a set of views
+
+        -->
+
+        <record model="ir.ui.view" id="activity_type_tree_view">
+
+            <field name="name">Activity Type.tree.view</field>
+
+            <field name="model">activity_type</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="Activity Type Form">
+                            <field name="activity_category_id"/>
+                            <field name="activity_type"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <record model="ir.actions.act_window" id="activity_type_list_action">
+
+            <field name="name">Activity Type </field>
+
+            <field name="res_model">activity_type</field>
+
+            <field name="view_type">form</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first Activity Type here
+
+                </p>
+
+            </field>
+
+        </record>
+
+
+
+    <menuitem parent="crm.crm_menu_pipeline" name="Activity Type" id="activity_type_menu" action="activity_type_list_action" sequence= "41"/> 
+
+
+
+</odoo>
+
+
+
+
+
+
+
+
+

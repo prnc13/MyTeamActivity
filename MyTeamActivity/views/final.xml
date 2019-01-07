@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<odoo>
+
+     <!-- tree view -->
+
+
+
+       <record model="ir.ui.view" id="final_form_view">
+
+            <field name="name">Sub Activity.form.view</field>
+
+            <field name="model">final</field>
+
+            <field name="arch" type="xml">
+
+                <form string="Sub Activity Form">
+
+                    <sheet>
+
+                        <group>
+                            
+                            <field name="activity_category_id"/>
+                        
+                           <field name="activity_type_id"/>
+                           <field name="name"/>
+                           <!-- <field name="user_id"/> -->
+                           <!-- <field name="date"/> -->
+                
+
+                        </group>
+
+                    </sheet>
+                    
+
+
+                </form>
+
+            </field>
+
+        </record>  
+
+
+
+        
+
+        <!--= window action -->
+
+        <!--
+
+            The following tag is an action definition for a "window action",
+
+            that is an action opening a view or a set of views
+
+        -->
+
+        <record model="ir.ui.view" id="final_tree_view">
+
+            <field name="name">Sub Activity.tree.view</field>
+
+            <field name="model">final</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="Sub Activity Form">
+                        <field name="activity_category_id"/>
+                    
+                        <field name="activity_type_id"/>
+                        <field name="name"/>
+                        
+                        <!-- <field name="user_id"/> -->
+                        <!-- <field name="date"/> -->
+                
+                    
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <record model="ir.actions.act_window" id="final_list_action">
+
+            <field name="name">Sub Activity </field>
+
+            <field name="res_model">final</field>
+
+            <field name="view_type">form</field>
+
+            <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first Sub Activity here
+
+                </p>
+
+            </field>
+
+        </record>
+
+        <!-- <record id ="view_crm_pipeline_custom" model="ir.ui.view">
+            <field name="name">crm.pipeline.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <notebook>
+                    <page name="Activity" string="Activity">
+                            <field name="activity_id" widget="One2many_list">
+                                <tree string="Activity_items" editable="bottom">
+                                    <field name="activity_category_id"/>
+                                    <field name="activity_type_id"/>
+                                    <field name="final_id"/>
+                                    <field name="user_id"/>
+                                    
+                                </tree>
+                            </field>
+                    </page>          
+                </notebook>      
+            </field>
+        </record>   -->
+       <!--  <record id ="pipeline_form_view_custom" model="ir.ui.view">
+            <field name="name">crm.pipeline.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="before">
+                    The header tag is built to add buttons within. This puts them at the top 
+                    <header>
+                    The oe_highlight class gives the button a red color when it is saved.
+                    It is usually used to indicate the expected behaviour. -->
+                        <!-- <button string="Push data" type="object" name="record_data"/>
+                    </header>
+                </xpath>    
+
+            </field>
+        </record> -->
+        <!-- <record id="view_partners_form_crm1" model="ir.ui.view">
+            <field name="name">view.res.partner.form.crm.inherited1</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="19" name="priority"/>
+            <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+            <field name="arch" type="xml">
+                <data>
+                    <button name="toggle_active" position="before">
+                        <button class="oe_stat_button o_res_partner_tip_opp" type="action"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            name="%(crm.crm_lead_opportunities)d"
+                            icon="fa-star"
+                            context="{'search_default_partner_id': active_id}">
+                            <field string="Activity"/>
+                        </button>
+                    </button>
+                </data>
+            </field>
+        </record> -->
+
+
+    <menuitem parent="crm.crm_menu_pipeline" name="SUB Activity" id="final_menu" action="final_list_action" sequence= "42"/>
+
+
+
+</odoo>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<odoo>
+		<record model="ir.ui.view" id="lead_reminder_tree_view">
+
+            <field name="name">lead_reminder.tree.view</field>
+
+            <field name="model">lead_reminder</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <tree string="reminder Form">
+                            <field name="name"/>
+                            <field name="reminder_date"/>
+                            
+                </tree>
+            </field>
+        </record>
+
+		<record id="lead_reminder_action" model="ir.actions.act_window">
+		        <field name="name">lead_reminder Field</field>
+		        <field name="res_model">lead_reminder</field>
+		        <field name="view type">form</field>
+		        <field name="view_mode">tree,form</field>
+
+            <field name="help" type="html">
+
+                <p class="oe_view_nocontent_create">Create the first insurance here
+
+                </p>
+
+            </field>
+
+        </record>
+    <menuitem parent="crm.crm_menu_pipeline" name="Reminder" id="lead_reminder_menu" action="lead_reminder_action" sequence= "41"/> 
+
+
+
+</odoo>
+
