@@ -44,14 +44,14 @@ class ActivityType(models.Model):
     #     else:
     #         self.hide = True        
 
-class final(models.Model):
-    _name='final'
+class SubActivity(models.Model):
+    _name='subactivity'
     name=fields.Char('Sub Activity',required=True,help="Add Sub Activity Here")
     activity_category_id=fields.Many2one(related='activity_type_id.activity_category_id',string='Activity Category',help="Add Activity Category Here")
-    activity_type_id=fields.Many2one('activity_type',string='Activity Type',help="Add Activity Type Here")
+    activity_type_id=fields.Many2one('activity.type',string='Activity Type',help="Add Activity Type Here")
     user_id=fields.Many2one('res.users',string='User')
     date=fields.Date(string="Task Date")
-    main_id=fields.Many2one('main')
+    main_id=fields.Many2one('reminder')
 
     @api.onchange('activity_category_id')
     def _onchange_act(self):
@@ -72,11 +72,11 @@ class recursive(models.Model):
 
 
 class main(models.Model):
-    _name='main'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _name='reminder'
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
     
     activity_category_id=fields.Many2one(related='activity_type_id.activity_category_id',string='Activity Category',help="Add Activity Category Here")
-    activity_type_id=fields.Many2one('activity_type',string='Activity Type',help="Add Activity Type Here")
+    activity_type_id=fields.Many2one('activity.type',string='Activity Type',help="Add Activity Type Here")
     user_id=fields.Many2one('res.users',string="User",store=True,default=lambda self: self.env.uid,help="Add User Here")
     customer_name=fields.Many2one('res.partner',help="Add Customer Name Here")
     rem_date= fields.Date(string="Reminder",store=True,required=True,help="Add Reminder Date Here")
@@ -86,8 +86,8 @@ class main(models.Model):
     status= fields.Selection([('pending','Pending'),('hold','On Hold'),('done','Done')])
     partner_id=fields.Many2one('res.partner',string='Customer')
     # order_rem_ids=fields.Many2many('final',string="Sub Activity")
-    order_rem_idss=fields.One2many('reminder_view','order_ids')
-    sub_ids=fields.One2many('final','main_id')
+    order_rem_ids=fields.One2many('reminder_view','order_ids')
+    sub_ids=fields.One2many('subactivity','main_id')
     
 
     @api.onchange('activity_category_id')
@@ -114,7 +114,7 @@ class main(models.Model):
     @api.onchange('activity_type_id')     
     def _onchange_sub(self):
         activities=[]
-        subactivities=self.env['final'].search([('activity_type_id', '=', self.activity_type_id.id)])
+        subactivities=self.env['reminder'].search([('activity_type_id', '=', self.activity_type_id.id)])
         
         for activity in subactivities:
             activities.append((0,0,{
@@ -158,16 +158,16 @@ class reminderview(models.Model):
 
     customer_name = fields.Many2one('res.partner', string="Customer Name", related='order_ids.customer_name',readonly=True)
 
-    activity_category_id = fields.Many2one('activity_category', string='Activity Category',
+    activity_category_id = fields.Many2one('activity.category', string='Activity Category',
                                   related='order_ids.activity_category_id', readonly=True, store=True)
 
-    activity_type_id = fields.Many2one('activity_type', string='Activity Type',
+    activity_type_id = fields.Many2one('activity.type', string='Activity Type',
                                   related='order_ids.activity_type_id', readonly=True, store=True)
     date = fields.Date(string='Sub Activity Target Date', related='product_ids.date', store=True)
     date_1 = fields.Date(string='Sub Activity Actual Date', related='product_ids.date', store=True)
     # supplier = fields.Many2one('res.partner', string='Vendor', related='product_id.supplier',
-    order_ids = fields.Many2one('main',ondelete='cascade', required=True,string='Reminder ID')
-    product_ids=fields.Many2one('final','Sub Activity')
+    order_ids = fields.Many2one('reminder',ondelete='cascade', required=True,string='Reminder ID')
+    product_ids=fields.Many2one('subactivity','Sub Activity')
     #                            readonly=True, store=True)
     user_id = fields.Many2one('res.users', string='Sub Activity User',related='product_ids.user_id', store=True)
     status= fields.Selection([('pending','Pending'),('hold','On Hold'),('done','Done')])
@@ -184,11 +184,11 @@ class mainpartner(models.Model):
     def _compute_activity_count(self):
         for partner in self:
             operator='child_of'
-            partner.activity_count=self.env['main'].search_count([('customer_name',operator,partner.id)])
+            partner.activity_count=self.env['reminder'].search_count([('customer_name',operator,partner.id)])
 
     
 
 class customer_extend(models.Model):
     _inherit='res.partner'
 
-    activity_tags =fields.Many2many('activity_category','tag_ids',string="Services")
+    activity_tags =fields.Many2many('activity.category','tag_ids',string="Services")
