@@ -6,11 +6,11 @@
 
 
 
-       <record model="ir.ui.view" id="main_form_view">
+       <record model="ir.ui.view" id="reminder_form_view">
 
             <field name="name">Reminder.form.view</field>
 
-            <field name="model">main</field>
+            <field name="model">reminder</field>
 
             <field name="arch" type="xml">
 
@@ -68,11 +68,11 @@
 
         -->
 
-        <record model="ir.ui.view" id="main_tree_view">
+        <record model="ir.ui.view" id="reminder_tree_view">
 
             <field name="name">Reminder.tree.view</field>
 
-            <field name="model">main</field>
+            <field name="model">reminder</field>
             <field name="type">tree</field>
 
             <field name="arch" type="xml">
@@ -102,11 +102,11 @@
 
 
 
-        <record model="ir.actions.act_window" id="main_list_action">
+        <record model="ir.actions.act_window" id="reminder_list_action">
 
             <field name="name">Activity Reminder </field>
 
-            <field name="res_model">main</field>
+            <field name="res_model">reminder</field>
 
             <field name="view_type">form</field>
 
@@ -120,16 +120,16 @@
 
         </record>
 
-        <record model="ir.actions.act_window" id="main_list_action1">
+        <record model="ir.actions.act_window" id="reminder_list_action1">
 
             <field name="name">Activity Reminder</field>
 
-            <field name="res_model">main</field>
+            <field name="res_model">reminder</field>
 
             <field name="view_type">form</field>
 
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('customer_name','=', active_id)]</field>
+            <field name="doreminder">[('customer_name','=', active_id)]</field>
             <field name="context">{
                 'search_default_partner_id': active_id,
                 'default_type': 'customer_name'
@@ -144,31 +144,31 @@
 
         </record>
 
-        <!-- <record id="relate_partner_main_tree" model="ir.actions.act_window.view">
+        <!-- <record id="relate_partner_reminder_tree" model="ir.actions.act_window.view">
             <field name="sequence" eval="0"/>
             <field name="view_type">tree</field>
-            <field name="view_id" ref="main_tree_view"/>
-            <field name="act_window_id" ref="main_list_action1"/>
+            <field name="view_id" ref="reminder_tree_view"/>
+            <field name="act_window_id" ref="reminder_list_action1"/>
         </record> -->
        
         
-        <record model="ir.ui.view" id="main_search_view">
+        <record model="ir.ui.view" id="reminder_search_view">
 
-            <field name="name">main.search.view</field>
+            <field name="name">reminder.search.view</field>
 
-            <field name="model">main</field>
+            <field name="model">reminder</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="main Form">
+                <search string="reminder Form">
                     <filter string="Today"  name="Today" separator="1"
-                        domain="['|','|','|',('rem_date', '=', context_today().strftime('%Y-%m-%d')),
+                        doreminder="['|','|','|',('rem_date', '=', context_today().strftime('%Y-%m-%d')),
                         ('last_date', '=', context_today().strftime('%Y-%m-%d')),
                         ('actual_date', '=', context_today().strftime('%Y-%m-%d')),
                         ('target_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
 
-                    <filter string="Status:On Hold"  name="On Hold" separator="1" domain="[('status','=', 'hold')]"/> 
-                    <filter string="Status:Pending"  name="Pending" separator="1" domain="[('status','=', 'pending')]"/> 
-                    <filter string="Status:Done"  name="Done" separator="1" domain="[('status','=', 'done')]"/>  
+                    <filter string="Status:On Hold"  name="On Hold" separator="1" doreminder="[('status','=', 'hold')]"/> 
+                    <filter string="Status:Pending"  name="Pending" separator="1" doreminder="[('status','=', 'pending')]"/> 
+                    <filter string="Status:Done"  name="Done" separator="1" doreminder="[('status','=', 'done')]"/>  
                     <filter string="Activity Category" context="{'group_by':'activity_category_id'}"/>
                     <filter string="Activity Type" context="{'group_by':'activity_type_id'}"/>
 
@@ -177,7 +177,7 @@
             </field>
         </record>
 
-    <menuitem parent="crm.crm_menu_pipeline" name="Activity Reminder" id="main_menu" action="main_list_action" sequence= "45"/> 
+    <menuitem parent="crm.crm_menu_pipeline" name="Activity Reminder" id="reminder_menu" action="reminder_list_action" sequence= "45"/> 
 
         
 

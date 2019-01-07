@@ -6,33 +6,39 @@
 
 
 
-       <record model="ir.ui.view" id="sub_activity_form_view">
+       <record model="ir.ui.view" id="subactivity_form_view">
 
-            <field name="name">sub_activity.form.view</field>
+            <field name="name">Sub Activity.form.view</field>
 
-            <field name="model">sub_activity</field>
+            <field name="model">subactivity</field>
 
             <field name="arch" type="xml">
 
-                <form string="insurance Form">
+                <form string="Sub Activity Form">
 
                     <sheet>
 
                         <group>
+                            
+                            <field name="activity_category_id"/>
                         
                            <field name="activity_type_id"/>
-                           <field name="sub_activity"/>
+                           <field name="name"/>
+                           <!-- <field name="user_id"/> -->
+                           <!-- <field name="date"/> -->
                 
 
                         </group>
 
                     </sheet>
+                    
+
 
                 </form>
 
             </field>
 
-            </record>  
+        </record>  
 
 
 
@@ -48,18 +54,22 @@
 
         -->
 
-        <record model="ir.ui.view" id="sub_activity_tree_view">
+        <record model="ir.ui.view" id="subactivity_tree_view">
 
-            <field name="name">sub_activity.tree.view</field>
+            <field name="name">Sub Activity.tree.view</field>
 
-            <field name="model">sub_activity</field>
+            <field name="model">subactivity</field>
             <field name="type">tree</field>
 
             <field name="arch" type="xml">
-                <tree string="sub_activity Form">
+                <tree string="Sub Activity Form">
+                        <field name="activity_category_id"/>
                     
                         <field name="activity_type_id"/>
-                        <field name="sub_activity"/>
+                        <field name="name"/>
+                        
+                        <!-- <field name="user_id"/> -->
+                        <!-- <field name="date"/> -->
                 
                     
                 </tree>
@@ -69,11 +79,11 @@
 
 
 
-        <record model="ir.actions.act_window" id="sub_activity_list_action">
+        <record model="ir.actions.act_window" id="subactivity_list_action">
 
-            <field name="name">sub_activity Field </field>
+            <field name="name">Sub Activity </field>
 
-            <field name="res_model">sub_activity</field>
+            <field name="res_model">subactivity</field>
 
             <field name="view_type">form</field>
 
@@ -81,7 +91,7 @@
 
             <field name="help" type="html">
 
-                <p class="oe_view_nocontent_create">Create the first insurance here
+                <p class="oe_view_nocontent_create">Create the first Sub Activity here
 
                 </p>
 
@@ -100,7 +110,7 @@
                                 <tree string="Activity_items" editable="bottom">
                                     <field name="activity_category_id"/>
                                     <field name="activity_type_id"/>
-                                    <field name="sub_activity_id"/>
+                                    <field name="subactivity_id"/>
                                     <field name="user_id"/>
                                     
                                 </tree>
@@ -147,7 +157,7 @@
         </record> -->
 
 
-    <menuitem parent="crm.crm_menu_pipeline" name="Sub Activity" id="sub_activity_menu" action="sub_activity_list_action" sequence= "42"/> 
+    <menuitem parent="crm.crm_menu_pipeline" name="SUB Activity" id="subactivity_menu" action="subactivity_list_action" sequence= "42"/>
 
 
 
