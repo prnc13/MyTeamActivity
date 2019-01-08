@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 
 
 
-    
+#     its is a activity category Master to add activity(for ex: income tax)
 class ActivityCategory(models.Model):
     _name="activity.category"
     _rec_name='activity_category'
@@ -15,7 +15,7 @@ class ActivityCategory(models.Model):
     color = fields.Char(string="Color",help="Choose your color",size=7)
     tag_ids=fields.Many2one('res.partner')
 
-
+#       its is a activity category Master to add activity(for ex: income tax)
 class ActivityType(models.Model):
     _name="activity.type"
     _rec_name='activity_type'
@@ -59,16 +59,6 @@ class SubActivity(models.Model):
             return {'domain': {'activity_type_id': [('activity_category_id', '=', self.activity_category_id.id)]}}
         else:
             return {'domain': {'activity_type_id': []}}
-
-    
-
-    
-class recursive(models.Model):
-    _name='recursive'
-    act1=fields.Many2one('activity_category',string='Activity Category')
-    name=fields.Many2one('activity_type',string='Activity Type')
-    rec = fields.Boolean(string="Recursive")
-    rem_date= fields.Date(string='Reminder Date')
 
 
 class Reminder(models.Model):
@@ -173,22 +163,3 @@ class reminderview(models.Model):
     status= fields.Selection([('pending','Pending'),('hold','On Hold'),('done','Done')])
    
 
-class mainpartner(models.Model):
-    _inherit='res.partner'
-
-    
-    activity_count=fields.Integer(compute='_compute_activity_count')
-    # activity_id=fields.One2many('main','partner_id')
-
-    @api.multi
-    def _compute_activity_count(self):
-        for partner in self:
-            operator='child_of'
-            partner.activity_count=self.env['reminder'].search_count([('customer_name',operator,partner.id)])
-
-    
-
-class customer_extend(models.Model):
-    _inherit='res.partner'
-
-    activity_tags =fields.Many2many('activity.category','tag_ids',string="Services")
